@@ -1,6 +1,6 @@
 .MEMORYMAP
-DEFAULTSLOT 0
-SLOT 0 $4000 $0400
+    DEFAULTSLOT 0
+    SLOT 0 $4000 $0400
 .ENDME
 
 .ROMBANKSIZE $400
@@ -15,16 +15,16 @@ SLOT 0 $4000 $0400
 .dw 0        ; TEXT
 .dw 0,0,0    ; Reserved
 
-minhastring:
-.db "OLÁ MUNDO!\0"
+greeting:
+.db "Hello world!\0"
 
 main:
-    ; Inicializa o video
+    ; Init video
     ld a, 32
     ld (LINL32), a ; 32 columns
     call INIT32     ; SCREEN 1
 
-    ld hl, minhastring
+    ld hl, greeting
     call puts
 
     di
@@ -37,4 +37,3 @@ puts:
     call CHPUT
     inc hl
     jr puts
-    
