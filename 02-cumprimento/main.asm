@@ -31,12 +31,12 @@ main:
     call puts
 
     call INLIN
-    ex hl, de
+    ex de, hl
 
     ld hl, cumprimento
     call puts
 
-    ex hl, de
+    ex de, hl
     inc hl
     call puts
 
