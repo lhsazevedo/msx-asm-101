@@ -10,8 +10,7 @@ SLOT 0 $4000 $0400
 
 ; Variáveis
 .ENUM $c000
-buf1: dsb 2
-buf2: dsb 2
+    num1: db
 .ENDE
 
 .db "AB"     ; ID for auto-executable ROM
@@ -37,16 +36,24 @@ main:
     call puts
 
     call INLIN
-    ex hl, de
+    inc hl
+    ld a, (hl)
+    sub '0'
+    ld (num1), a
 
     ld hl, pergunta2
     call puts
 
     call INLIN
+    inc hl
+    ld a, (hl)
+    sub '0'
+    ld hl, num1
+    add a, (hl)
 
-    ; ex hl, de
-    ; inc hl
-    ; call puts
+    add a, '0'
+
+    call CHPUT
 
     di
     halt
@@ -58,12 +65,3 @@ puts:
     call CHPUT
     inc hl
     jr puts
-
-strcpy:
-    ld a, (hl)
-    or a
-    ret z
-    ld (de),(hl)
-    inc hl
-    inc de
-    jr strcpy
